@@ -5,7 +5,7 @@ def job = mavenJob('APPS_API_SONAR_BRANCH'){
     // Définir le JDK par défaut
 
     // Description du job.
-    description('Ce job permet de lancer un scan sonar sur une branche de  l\'application doctolib')
+    description('Ce job permet de lancer un scan sonar sur une branche de  l\'API apps.')
 
 //    Exécution automatique du job tous les jours à 6h et à 13H
     triggers {
@@ -24,7 +24,7 @@ def job = mavenJob('APPS_API_SONAR_BRANCH'){
     scm {
         git {
             remote {
-                url('https://github.com/eleongithub/doctolib.git')
+                url('https://github.com/eleongithub/apps.git')
             }
             branch('${branch}')
         }

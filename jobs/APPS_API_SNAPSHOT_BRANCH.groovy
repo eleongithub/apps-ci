@@ -5,7 +5,7 @@ def job = mavenJob('APPS_API_SNAPSHOT_BRANCH'){
     //    Définir le JDK par défaut
 
     // Description du job.
-    description('Ce job permet de lancer un snapshot de l\'application doctolib')
+    description('Ce job permet de lancer un snapshot de l\'API apps')
 
 
 //    Définir les paramètres du Job
@@ -19,7 +19,7 @@ def job = mavenJob('APPS_API_SNAPSHOT_BRANCH'){
     scm {
         git {
             remote {
-                url('https://github.com/eleongithub/doctolib.git')
+                url('https://github.com/eleongithub/apps.git')
             }
             branch('${branch}')
         }
@@ -28,5 +28,5 @@ def job = mavenJob('APPS_API_SNAPSHOT_BRANCH'){
     goals('clean deploy -DskipTests')
 //    TODO Envoyer un mail de notification à la fin du snapshot
 }
-DbUtils.defaultWrappersPolicy(job)
-DbUtils.defaultLogRotatorPolicy(job)
+AppsUtils.defaultWrappersPolicy(job)
+AppsUtils.defaultLogRotatorPolicy(job)
