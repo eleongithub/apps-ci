@@ -30,7 +30,7 @@ def job = freeStyleJob('APPS_API_DEPLOY'){
     scm {
         git {
             remote {
-                url('https://github.com/eleongithub/apps-jobs-jenkins.git')
+                url('https://github.com/eleongithub/apps-ci.git')
             }
             branch('${branch}')
             extensions{

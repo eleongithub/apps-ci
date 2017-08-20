@@ -22,7 +22,7 @@ def job = mavenJob('APPS_API_RELEASE'){
     scm {
         git {
             remote {
-                url('https://github.com/eleongithub/apps.git')
+                url('https://github.com/eleongithub/apps-api.git')
             }
             branch('${branch}')
             extensions{
