@@ -16,7 +16,7 @@ def job = freeStyleJob('APPS_API_DEPLOY'){
         choiceParam('environment', ['dev', 'qualif', 'prod'], 'Environnement cible de déploiement.')
         choiceParam('repository', ['snapshots', 'releases'], 'Repository (Snapshots/Releases) sur lequel seront téléchargés des livrables')
         stringParam('branch', 'master', 'Branche Ansible à utiliser pour effectuer le deploiement')
-        stringParam('dbVersion', '1.0.0-SNAPSHOT', 'Version de l\'API à déployer.')
+        stringParam('apps_api_version', '1.0.0-SNAPSHOT', 'Version de l\'API à déployer.')
         booleanParam('installComplete', false, 'Installation complete des rôles du playbook.')
         booleanParam('firewall', false, 'Installation du par-feu de sécurité avec les règles de filtrage iptables.')
         booleanParam('jdk', false, 'Installation du Java Development Kit (JDK 1.8).')

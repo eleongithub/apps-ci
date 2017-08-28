@@ -67,6 +67,11 @@ echo "---------------------"
 VAULT_PASSWORD="test"
 echo $VAULT_PASSWORD > vault_pass.txt
 
+echo "---" > extra_vars.yml
+echo "env: ${environment}" >>extra_vars.yml
+echo "apps_api_version: ${apps_api_version}" >>extra_vars.yml
+
+
 INVENTORY_HOST_FILE=inventory/${environment}/hosts.yml
 ansible-playbook --vault-password-file vault_pass.txt -i $INVENTORY_HOST_FILE playbook.yml ${debug_option} ${tags} -e "@extra_vars.yml"
 rm -f extra_vars.yml vault_pass.txt
