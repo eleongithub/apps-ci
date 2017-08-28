@@ -3,17 +3,20 @@
 set +x
 set -e
 echo "####################################"
-echo "=========== Debut Upload du fichier ======="
+echo "=========== Upload du fichier ======="
 echo "####################################"
 
 mv archiveFile ${archiveFile}
 user="admin"
 password="admin123"
+# Vérifier si le paramètre directory a été renseigné.
 if [ -z "${directory}" ]
 then
     repo_url="http://192.168.1.97:9081/nexus/content/repositories/${repository}"
 else
     repo_url="http://192.168.1.97:9081/nexus/content/repositories/${repository}/${target}"
 fi
-#--write-out "\nStatus: %{http_code}\n" \
-curl -sSf -k -u ${user}:${password} -T ${archiveFile} ${repo_url}
+echo "URL Repositiory cible : $repo_url"
+echo "nom du fichier archive à déposer : ${archiveFile}"
+curl -v -u ${user}:${password} --upload-file ${archiveFile} ${repo_url}/${archiveFile}
+echo "=========== Fin du dépôt du fichier ======="
