@@ -43,7 +43,7 @@
 - name: Copy Tomcat init script
   template:
     src: "tomcat.sh.j2"
-    dest: "{{ tomcat_conf_init_script }}"
+    dest: "{{ tomcat_init_script }}"
     owner: root
     group: root
     mode: 0755
