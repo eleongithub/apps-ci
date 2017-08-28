@@ -12,16 +12,17 @@
     enabled: no
   ignore_errors: true
 
-- name: Create tomcat directory
-  file:
-    path: "{{ tomcat_home }}"
-    state: directory
-
 - name: Download and decompress tomcat Archive
   unarchive:
     src: "{{ tomcat_url }}"
-    dest: "{{ tomcat_home }}/"
+    dest: "opt/"
     remote_src: True
 
-- name: Install Tomcat native library with SSL
-  shell: cd {{ tomcat_libtcnative_util_home }} && ./configure --with-apr={{ tomcat_apr_config_file }} --with-java-home={{ tomcat_java_home }} --with-ssl=yes --prefix={{ tomcat_home }} && make && make install
+- name: Decompress tomcat native library
+  unarchive:
+    src: "{{ tomcat_home }}/bin/tomcat-native.tar.gz"
+    dest: "{{ tomcat_home }}/bin/"
+
+#
+#- name: Install Tomcat native library with SSL
+#  shell: cd {{ tomcat_libtcnative_util_home }} && ./configure --with-apr={{ tomcat_apr_config_file }} --with-java-home={{ tomcat_java_home }} --with-ssl=yes --prefix={{ tomcat_home }} && make && make install
