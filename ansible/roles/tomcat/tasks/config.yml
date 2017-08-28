@@ -1,0 +1,54 @@
+---
+
+- name: Create Group Tomcat
+  group:
+    name: "{{ tomcat_group }}"
+    state: present
+
+- name: Create User Tomcat
+  user:
+    name: "{{ tomcat_user }}"
+    createhome: no
+    group: "{{ tomcat_group }}"
+    shell: /bin/bash
+    state: present
+
+- name: Change the owner of tomcat versions directory
+  file:
+    path: "{{ tomcat_home }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    recurse: yes
+
+- name: Create the tomcat configuration directory
+  file:
+    path: "{{ tomcat_conf_directory }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    state: directory
+    recurse: yes
+
+- name: Deploy configuration Tomcat files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+  with_items:
+   - "{{ tomcat_conf_files }}"
+
+- name: Apply OWASP rule to secure Tomcat
+  include: owasp.yml
+
+- name: Copy Tomcat init script
+  template:
+    src: "tomcat.sh.j2"
+    dest: "{{ tomcat_conf_init_script }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Enable Tomcat service
+  service:
+    name: tomcat
+    enabled: yes

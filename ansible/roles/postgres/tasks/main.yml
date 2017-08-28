@@ -1,2 +1,9 @@
 ---
 # tasks file for postgres
+- name: Installing PostgreSQL Server
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ postgres_server_pkg }}"
+    - "{{ postgres_client_pkg }}"

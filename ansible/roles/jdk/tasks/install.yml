@@ -1,0 +1,39 @@
+---
+- name: Create jdk version directory
+  file:
+    path: "{{ jdk_versions }}"
+    state: directory
+
+- name: Download and decompress jdk Archive
+  unarchive:
+    src: "jdk_{{ ansible_userspace_bits }}_url"
+    dest: "{{ jdk_versions }}/"
+    remote_src: True
+    validate_certs: no
+
+- name: Add/Update environments variables
+  blockinfile:
+    dest: "/etc/profile"
+    insertafter: EOF
+    block: |
+      # Java Home
+      JAVA_HOME="{{ jdk_java_home }}"
+      export JAVA_HOME
+      # Update PATH
+      PATH=$PATH:"$JAVA_HOME/bin"
+      export PATH
+    state: present
+
+- name: Relaod environments variables
+  shell: . /etc/profile
+
+# Si on ne souhaite pas pas utiliser le fichier /etc/profile, on peut aussi utiliser update-alternatives pour mettre en place les commandes Java.
+#- name: Update alternatives
+#  command: "{{ item }}"
+#  with_items:
+#    - "update-alternatives --install /usr/bin/java java {{ jdk_java_home }}/bin/java 1"
+#    - "update-alternatives --install /usr/bin/javac javac {{ jdk_java_home }}/bin/javac 1"
+#    - "update-alternatives --install /usr/bin/jar jar {{ jdk_java_home }}/bin/jar 1"
+#    - "update-alternatives --set java {{ jdk_java_home }}/bin/java"
+#    - "update-alternatives --set javac {{ jdk_java_home }}/bin/javac"
+#    - "update-alternatives --set jar {{ jdk_java_home }}/bin/jar"

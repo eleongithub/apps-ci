@@ -1,2 +1,9 @@
 ---
 # tasks file for jdk
+- name: Get JDK/Java version installed on the node
+  shell: "{{ jdk_java_home }}/bin/java -version 2>&1"
+  register: java_version_result
+  ignore_errors: True
+
+- include: install.yml
+  when: ((java_version_result|failed) or ('{{ jdk_java_version }}' not in '{{ java_version_result.stdout }}'))

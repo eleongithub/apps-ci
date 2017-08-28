@@ -1,2 +1,35 @@
 ---
 # tasks file for postgres_instance
+
+- name: Installing python-psycopg2 package
+  apt:
+    pkg: python-psycopg2
+    state: present
+
+- name: Create user
+  postgres_user:
+    user: "{{ item.db_user }}"
+    password: "{{ item.db_password }}"
+    roles: "{{ item.db_user_roles }}"
+    state: present
+  with_items: "{{ postgres_instance_dbs }}"
+
+- name: Create database
+  postgres_db:
+    name: "{{ item.db_name }}"
+    owner: "{{ item.db_user }}"
+    state: present
+  with_items: "{{ postgres_instance_dbs }}"
+
+- name: Create schema
+  postgres_schema:
+    database: "{{ item.db_name }}"
+    schema: "{{ item.db_schema }}"
+    user: "{{ item.db_user }}"
+    state: present
+  with_items: "{{ postgres_instance_dbs }}"
+
+- name: Restart PostgreSQL
+  command: echo "Restart PostgreSQL"
+  notify:
+    - Restart PostgreSQL

@@ -1,0 +1,35 @@
+---
+
+###################
+# Security
+###################
+- hosts: all
+  vars_files:
+   - "password/password-{{env}}.yml"
+  become: yes
+  roles:
+    - { role: firewall, tags: ['firewall'] }
+
+# ###################
+# # Data Base
+# ###################
+- hosts: database
+  vars_files:
+   - "password/password-{{env}}.yml"
+  become: yes
+  roles:
+    - { role: postgres, tags: ['postgres'] }
+    - { role: postgres_instance, tags: ['postgres_instance'] }
+    - { role: dbmaintain, tags: ['dbmaintain'] }
+
+# ###################
+# # Install tomcat & apps API
+# ###################
+- hosts: tomcat
+  vars_files:
+   - "password/password-{{env}}.yml"
+  become: yes
+  roles:
+     - { role: jdk, tags: ['jdk'] }
+     - { role: tomcat, tags: ['tomcat'] }
+     - { role: apps, tags: ['apps'] }

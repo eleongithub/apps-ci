@@ -1,0 +1,27 @@
+---
+- name: Install required librairies
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ tomcat_required_packages }}"
+
+- name: Stop eventual tomcat server running
+  service:
+    name: tomcat
+    state: stopped
+    enabled: no
+  ignore_errors: true
+
+- name: Create tomcat directory
+  file:
+    path: "{{ tomcat_home }}"
+    state: directory
+
+- name: Download and decompress tomcat Archive
+  unarchive:
+    src: "{{ tomcat_url }}"
+    dest: "{{ tomcat_home }}/"
+    remote_src: True
+
+- name: Install Tomcat native library with SSL
+  shell: cd {{ tomcat_libtcnative_util_home }} && ./configure --with-apr={{ tomcat_apr_config_file }} --with-java-home={{ tomcat_java_home }} --with-ssl=yes --prefix={{ tomcat_home }} && make && make install

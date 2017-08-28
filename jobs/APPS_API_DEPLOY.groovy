@@ -15,14 +15,16 @@ def job = freeStyleJob('APPS_API_DEPLOY'){
         booleanParam('debug', true, 'Exécuter le job en mode Debug.')
         choiceParam('environment', ['dev', 'qualif', 'prod'], 'Environnement cible de déploiement.')
         choiceParam('repository', ['snapshots', 'releases'], 'Repository (Snapshots/Releases) sur lequel seront téléchargés des livrables')
-        stringParam('branch', 'master', 'Branche à utiliser pour effectuer le deploiement')
+        stringParam('branch', 'master', 'Branche Ansible à utiliser pour effectuer le deploiement')
         stringParam('dbVersion', '1.0.0-SNAPSHOT', 'Version de l\'API à déployer.')
         booleanParam('installComplete', false, 'Installation complete des rôles du playbook.')
         booleanParam('firewall', false, 'Installation du par-feu de sécurité avec les règles de filtrage iptables.')
         booleanParam('jdk', false, 'Installation du Java Development Kit (JDK 1.8).')
         booleanParam('postgres', false, 'Installation du serveur de base de données PostgreSQL.')
         booleanParam('postgres_instance', false, 'Installation de(s) instance(s) de base de données.')
-        booleanParam('apps_api', false, 'Installation de l\'API.')
+        booleanParam('dbmaintain', false, 'Execution des scripts SQL via DbMaintain.')
+        booleanParam('tomcat', false, 'Installation d\'Apache Tomcat.')
+        booleanParam('apps', false, 'Installation de l\'API.')
         nonStoredPasswordParam('vaultPassword', 'Mot de passe pour décrypter les variables sécurisées avec Ansible-vault.')
     }
 
@@ -40,9 +42,10 @@ def job = freeStyleJob('APPS_API_DEPLOY'){
     }
 
     steps {
+//        shell(readFileFromWorkspace("scripts/common/virtualenv.sh"))
         shell(readFileFromWorkspace('scripts/APPS_API_DEPLOY/apps_api_deploy.sh'))
     }
-//    TODO Envoyer un mail de notification à la fin du release
+//    TODO Envoyer un mail de notification à la fin du deploiement
 }
 AppsUtils.defaultWrappersPolicy(job)
 AppsUtils.defaultLogRotatorPolicy(job)

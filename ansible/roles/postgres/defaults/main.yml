@@ -1,2 +1,8 @@
 ---
 # defaults file for postgres
+postgres_version: 9.4
+postgres_listen_addresses: "*"
+postgres_conf_dir: "/etc/postgresql/{{postgres_version}}/main"
+postgres_server_pkg: "postgresql-{{postgres_version}}"
+postgres_client_pkg: "postgresql-client-{{postgres_version}}"
+

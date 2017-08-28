@@ -1,2 +1,12 @@
 ---
 # tasks file for tomcat
+- name: Check if tomcat is installed on the system
+  shell: cat "{{ tomcat_home }}/RELEASE-NOTES"
+  register: tomcat_version_result
+  ignore_errors: True
+
+- include: install.yml
+  when: ((tomcat_version_result|failed) or (tomcat_version_result.stdout.find('{{ tomcat_version }}') != -1))
+
+- include: config.yml
+  when: ((tomcat_version_result|failed) or (tomcat_version_result.stdout.find('{{ tomcat_version }}') != -1))

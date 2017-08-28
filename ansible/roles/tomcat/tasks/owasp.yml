@@ -1,0 +1,51 @@
+---
+
+- name: Change files in CATALINA_HOME/conf to be read & execute (0500).
+  file:
+    path: "{{ tomcat_home }}/conf"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: 0500
+    recurse: yes
+
+- name: Change logs directory right.
+  file:
+    path: "{{ tomcat_home }}/logs"
+    mode: 0300
+    state: directory
+    recurse: yes
+
+- name: Delete unused files or directories
+  file:
+    path: "{{ tomcat_home }}/{{ item }}"
+    state: absent
+  with_items: "{{ tomcat_conf_remove_files }}"
+
+- name: Delete script *.bat files. We don't need them on Linux plateform
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_fileglob: "{{ tomcat_home }}/bin/*.bat"
+  ignore_errors: true
+
+- name: Create tomcat server info directory
+  file:
+    path: "{{ tomcat_home }}/lib/{{ tomcat_conf_server_info_dir }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    state: directory
+
+- name: Remove version string from HTTP error messages
+  template:
+    src: "ServerInfo.properties.j2"
+    dest: "{{ tomcat_home }}/lib/{{ tomcat_conf_server_info_dir }}/ServerInfo.properties"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+
+
+# Ressources web :
+# https://www.owasp.org/index.php/Securing_tomcat
+# https://confluence.atlassian.com/jira064/tomcat-security-best-practices-720411783.html
+# http://tomcat.apache.org/tomcat-7.0-doc/security-howto.html
+# https://www.upguard.com/articles/15-ways-to-secure-apache-tomcat-8
+# https://www.mulesoft.com/tcat/tomcat-security
