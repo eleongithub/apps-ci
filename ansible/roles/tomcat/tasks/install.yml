@@ -22,6 +22,7 @@
   unarchive:
     src: "{{ tomcat_home }}/bin/tomcat-native.tar.gz"
     dest: "{{ tomcat_home }}/bin/"
+    remote_src: True
 
 #
 #- name: Install Tomcat native library with SSL
