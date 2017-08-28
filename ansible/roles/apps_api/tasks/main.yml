@@ -18,16 +18,11 @@
   with_items:
     - "{{ tomcat_home }}/conf/Catalina"
     - "{{ tomcat_home }}/conf/Catalina/localhost"
-
-- name: Télécharger la librairie postgres
-  get_url:
-    url: "{{ apps_api_nexus_releases_url }}/postgresql-9.4-1201-jdbc41.jar"
-    dest: "{{ tomcat_home }}/lib/postgresql-9.4-1201-jdbc41.jar"
-    mode: 0750
+    - "{{ apps_api_conf_directory }}"
 
 - name: create log linkyboard directory
   file:
-    path: "{{ apps_api_logs_dir }}"
+    path: "{{ apps_api_logs_directory }}"
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"
     state: directory
@@ -42,8 +37,13 @@
       - "{{ tomcat_home }}/webapps/ROOT.war"
       - "{{ tomcat_home }}/webapps/ROOT"
 
+- name: Télécharger la librairie postgres
+  get_url:
+    url: "{{ apps_api_nexus_releases_url }}/postgresql-9.4-1201-jdbc41.jar"
+    dest: "{{ tomcat_home }}/lib/postgresql-9.4-1201-jdbc41.jar"
+    mode: 0750
+
 - name: Télécharger le fichier war de l'application
-  become: true
   get_url:
     url: "{{ apps_api_nexus_url }}?r={{ apps_api_repository }}&g={{ apps_api_groupid }}&a={{ apps_api_artifactid }}&v={{ apps_api_version }}&p={{ apps_api_package }}"
     dest: "{{ tomcat_home }}/webapps/ROOT.war"
@@ -51,9 +51,14 @@
     group: "{{ tomcat_group }}"
     mode: 0755
 
+- name: copier les fichiers de configuration
+  template:
+    src: log4j.properties.j2
+    dest: "{{ apps_api_conf_directory }}/log4j.properties"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
 
 - name: copier le fichier ROOT.xml
-  become: true
   template:
     src: ROOT.xml.j2
     dest: "{{ tomcat_home }}/conf/Catalina/localhost/ROOT.xml"

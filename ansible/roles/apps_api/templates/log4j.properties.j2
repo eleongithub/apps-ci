@@ -1,0 +1,25 @@
+
+log4j.appender.apps                     	  = org.apache.log4j.RollingFileAppender
+log4j.appender.apps.File                	  = "{{ apps_api_logs_directory }}/apps.log"
+log4j.appender.apps.rollingPolicy=org.apache.log4j.rolling.TimeBasedRollingPolicy
+log4j.appender.apps.rollingPolicy.ActiveFileName="{{ apps_api_logs_directory }}/apps.log"
+log4j.appender.apps.rollingPolicy.FileNamePattern=apps-.%d{yyyy-MM-dd}.log.gz
+log4j.appender.apps.layout              	  = org.apache.log4j.PatternLayout
+log4j.appender.apps.layout.ConversionPattern  = [%d{ISO8601}] [%t] [%-5p] [%c] %m%n
+log4j.appender.apps.threshold                 = ALL
+
+log4j.appender.stdout                          = org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target                   = System.out
+log4j.appender.stdout.Threshold                = ALL
+log4j.appender.stdout.layout                   = org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern = [%d{ISO8601}] [%t] [%-5p] [%c] %m%n
+
+log4j.logger.com.syscom                        	  = INFO, stdout, apps
+log4j.additivity.com.syscom				   		  = false
+log4j.logger.org.apache.ibatis                    = INFO, stdout, apps
+log4j.additivity.org.apache.ibatis           	  = false
+log4j.logger.org.mybatis.spring                   = INFO, stdout, apps
+log4j.additivity.org.mybatis.spring           	  = false
+log4j.logger.org.springframework                  = INFO, stdout, apps
+log4j.additivity.org.springframework           	  = false
+log4j.rootCategory                                = WARN, stdout, apps
