@@ -15,7 +15,7 @@
 - name: Download and decompress tomcat Archive
   unarchive:
     src: "{{ tomcat_url }}"
-    dest: "opt/"
+    dest: "/opt"
     remote_src: True
 
 - name: Decompress tomcat native library
