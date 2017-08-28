@@ -25,13 +25,13 @@ tomcat_conf_files:
  - { src: "logging.properties.j2", dest: "{{ tomcat_conf_directory }}/logging.properties" }
 
 tomcat_remove_files:
- #- "webapps/ROOT/"
+ - "webapps/ROOT/"
  - "webapps/examples/"
  - "webapps/host-manager/"
  - "webapps/manager/"
  - "conf/tomcat-users.xml"
  - "conf/tomcat-users.xsd"
- #- "webapps/docs/"
+ - "webapps/docs/"
 
 tomcat_conf_server_info_dir: "org/apache/catalina/util"
 
