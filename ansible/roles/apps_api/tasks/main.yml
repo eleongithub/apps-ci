@@ -21,7 +21,7 @@
 
 - name: Télécharger la librairie postgres
   get_url:
-    url: "{{ apps_api_nexus_url }}?r=releases&g=org.postgresql&a=postgresql&v=9.4-1201-jdbc41&p=jar"
+    url: "{{ apps_api_nexus_releases_url }}/postgresql-9.4-1201-jdbc41.jar"
     dest: "{{ tomcat_home }}/lib/postgresql-9.4-1201-jdbc41.jar"
     mode: 0750
 
