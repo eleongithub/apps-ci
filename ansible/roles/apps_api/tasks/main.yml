@@ -10,7 +10,7 @@
 
 - name: Créer les repertoires tomcat/conf/Catalina/ & tomcat/conf/Catalina/localhost
   file:
-    path: "{{ tomcat_home }}/conf/Catalina"
+    path: "{{ item }}"
     state: directory
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"
