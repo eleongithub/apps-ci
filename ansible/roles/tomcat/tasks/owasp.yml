@@ -19,7 +19,7 @@
   file:
     path: "{{ tomcat_home }}/{{ item }}"
     state: absent
-  with_items: "{{ tomcat_conf_remove_files }}"
+  with_items: "{{ tomcat_remove_files }}"
 
 - name: Delete script *.bat files. We don't need them on Linux plateform
   file:
