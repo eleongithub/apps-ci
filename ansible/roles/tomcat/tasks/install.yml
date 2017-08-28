@@ -25,4 +25,4 @@
     remote_src: True
 
 - name: Install Tomcat native library with SSL
-  shell: cd {{ tomcat_libtcnative_util_home }} && ./configure --with-apr={{ tomcat_apr_config_file }} --with-java-home={{ tomcat_java_home }} --prefix={{ tomcat_home }} && make && make install
+  shell: cd {{ tomcat_libtcnative_util_home }} && ./configure --with-apr={{ tomcat_apr_config_file }} --with-java-home={{ tomcat_java_home }} --with-ssl=no --prefix={{ tomcat_home }} && make && make install
