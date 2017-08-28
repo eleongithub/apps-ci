@@ -52,8 +52,3 @@
   service:
     name: tomcat
     enabled: yes
-
-- name: Restart tomcat
-  command: echo "Restart Tomcat service"
-  notify:
-    - Restart tomcat
