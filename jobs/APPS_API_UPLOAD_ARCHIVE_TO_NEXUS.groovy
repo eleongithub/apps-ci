@@ -1,4 +1,4 @@
-import utilities.DbUtils
+import utilities.AppsUtils
 
 // Job d'upload de fichiers sur le serveur Nexus
 def job = freeStyleJob('APPS_API_UPLOAD_ARCHIVE_TO_NEXUS'){
@@ -21,6 +21,6 @@ def job = freeStyleJob('APPS_API_UPLOAD_ARCHIVE_TO_NEXUS'){
         shell(readFileFromWorkspace('scripts/APPS_API_UPLOAD_ARCHIVE_TO_NEXUS/upload_archive.sh'))
     }
 }
-DbUtils.defaultWrappersPolicy(job)
-DbUtils.defaultLogRotatorPolicy(job)
+AppsUtils.defaultWrappersPolicy(job)
+AppsUtils.defaultLogRotatorPolicy(job)
 
