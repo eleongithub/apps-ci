@@ -15,19 +15,6 @@ export ANSIBLE_FORCE_COLOR="true"
 export ANSIBLE_HOST_KEY_CHECKING="False"
 export ANSIBLE_KEEP_REMOTE_FILES=1
 
-
-
-        booleanParam('installComplete', false, 'Installation complete des rôles du playbook.')
-        booleanParam('firewall', false, 'Installation du par-feu de sécurité avec les règles de filtrage iptables.')
-        booleanParam('jdk', false, 'Installation du Java Development Kit (JDK 1.8).')
-        booleanParam('postgres', false, 'Installation du serveur de base de données PostgreSQL.')
-        booleanParam('postgres_instance', false, 'Installation de(s) instance(s) de base de données.')
-        booleanParam('dbmaintain', false, 'Execution des scripts SQL via DbMaintain.')
-        booleanParam('tomcat', false, 'Installation d\'Apache Tomcat.')
-        booleanParam('apps_api', false, 'Installation de l\'API.')
-        nonStoredPasswordParam('vaultPassword', 'Mot de passe pour décrypter les variables sécurisées avec Ansible-vault.')
-
-
 debug_option=""
 limit=""
 tags="-t always"
