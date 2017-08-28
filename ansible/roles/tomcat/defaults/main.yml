@@ -5,7 +5,7 @@ tomcat_version: 8.0.32
 tomcat_tarball_name: "apache-tomcat-{{ tomcat_version }}.tar.gz"
 tomcat_url: "{{ repo_url }}/content/repositories/releases/{{ tomcat_tarball_name }}"
 tomcat_home: "/opt/apache-tomcat-{{ tomcat_version }}"
-tomcat_java_home: "/opt/java"
+tomcat_java_home: "/opt/jdk_versions/jdk1.8.0_131"
 tomcat_libtcnative_version: 1.1.34
 tomcat_libtcnative_util_tarball_name: "tomcat-native-{{ tomcat_libtcnative_version }}-src.tar.gz"
 tomcat_native_url: "{{ repo_url }}/content/repositories/releases/{{ tomcat_libtcnative_util_tarball_name }}"
