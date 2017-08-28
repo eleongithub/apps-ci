@@ -68,7 +68,7 @@
 - name: copier le fichier apps-config.properties
   template:
     src: apps-config.properties.j2
-    dest: "{{ tomcat_home }}/conf/Catalina/localhost/apps-config.properties"
+    dest: "{{ apps_api_conf_directory }}/apps-config.properties"
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"
 
