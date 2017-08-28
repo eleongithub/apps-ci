@@ -65,6 +65,13 @@
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"
 
+- name: copier le fichier apps-config.properties
+  template:
+    src: apps-config.properties.j2
+    dest: "{{ tomcat_home }}/conf/Catalina/localhost/apps-config.properties"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+
 - name: Restart tomcat
   command: echo "Restart Tomcat service"
   notify:
