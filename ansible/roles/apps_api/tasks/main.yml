@@ -1,0 +1,66 @@
+---
+# tasks file for apps_api
+
+- name: Stop eventual tomcat server running
+  service:
+    name: tomcat
+    state: stopped
+    enabled: no
+  ignore_errors: true
+
+- name: Créer les repertoires tomcat/conf/Catalina/ & tomcat/conf/Catalina/localhost
+  file:
+    path: "{{ tomcat_home }}/conf/Catalina"
+    state: directory
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    recurse: yes
+  with_items:
+    - "{{ tomcat_home }}/conf/Catalina"
+    - "{{ tomcat_home }}/conf/Catalina/localhost"
+
+- name: Télécharger la librairie postgres
+  get_url:
+    url: "{{ apps_api_nexus_url }}?r=releases&g=org.postgresql&a=postgresql&v=9.4-1201-jdbc41&p=jar"
+    dest: "{{ tomcat_home }}/lib/postgresql-9.4-1201-jdbc41.jar"
+    mode: 0750
+
+- name: create log linkyboard directory
+  file:
+    path: "{{ apps_api_logs_dir }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    state: directory
+    mode:  0750
+    recurse: yes
+
+- name: Supprimer le precedent war et le repertoires qui en était le résultat
+  file:
+   path: "{{ item }}"
+   state: absent
+  with_items:
+      - "{{ tomcat_home }}/webapps/ROOT.war"
+      - "{{ tomcat_home }}/webapps/ROOT"
+
+- name: Télécharger le fichier war de l'application
+  become: true
+  get_url:
+    url: "{{ apps_api_nexus_url }}?r={{ apps_api_repository }}&g={{ apps_api_groupid }}&a={{ apps_api_artifactid }}&v={{ apps_api_version }}&p={{ apps_api_package }}"
+    dest: "{{ tomcat_home }}/webapps/ROOT.war"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: 0755
+
+
+- name: copier le fichier ROOT.xml
+  become: true
+  template:
+    src: ROOT.xml.j2
+    dest: "{{ tomcat_home }}/conf/Catalina/localhost/ROOT.xml"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+
+- name: Restart tomcat
+  command: echo "Restart Tomcat service"
+  notify:
+    - Restart tomcat

@@ -1,0 +1,9 @@
+---
+# defaults file for apps_api
+apps_api_version: 'LATEST'
+apps_api_groupid: "com.syscom"
+apps_api_artifactid: "apps-web-service"
+apps_api_package: "war"
+apps_api_nexus_url: "{{ repo_url }}/service/local/artifact/maven/content"
+apps_api_repository: "snapshots"
+apps_api_logs_dir: "/var/log/apps_api"

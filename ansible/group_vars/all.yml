@@ -1,3 +1,6 @@
 ---
 # file for group [all]
 repo_url: "http://192.168.1.97:9081/nexus"
+
+postgres_instance_dbs:
+  - { db_user: '{{ vault_db_user }}', db_password: "{{ vault_db_password }}", db_user_roles: 'CREATEROLE CREATEUSER',  db_name: 'appsdb', db_schema: 'appsdb' }

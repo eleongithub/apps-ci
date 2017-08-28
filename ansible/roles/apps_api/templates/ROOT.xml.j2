@@ -1,0 +1,34 @@
+<Context>
+
+  <!--<Loader className="org.apache.catalina.loader.VirtualWebappLoader" virtualClasspath="{{ lpi_appli_conf_path }}" />-->
+  <Resource name="im_ws"
+    auth="Container"
+    type="javax.sql.DataSource"
+    maxActive="8"
+   	maxIdle="50"
+   	maxWait="10000"
+    username="{{ vault_db_user }}"
+    password="{{ vault_db_password }}"
+    driverClassName="org.postgresql.Driver"
+    validationQuery="SELECT 1"
+    removeAbandoned="true"
+    removeAbandonedTimeout="60"
+    testOnBorrow="true"
+    url="jdbc:postgresql://localhost:5432/appsdb" />
+
+  <!--<Resource name="im_ws"
+    auth="Container"
+    type="javax.sql.DataSource"
+    maxActive="8"
+   	maxIdle="50"
+   	maxWait="10000"
+    username="{{ jdbc.username }}"
+    password="{{ jdbc.password }}"
+    driverClassName="{{ jdbc.driverClassName }}"
+    validationQuery="SELECT 1"
+    removeAbandoned="true"
+    removeAbandonedTimeout="60"
+    testOnBorrow="true"
+    url="{{ jdbc.url }}" />-->
+
+</Context>
