@@ -32,4 +32,4 @@
   roles:
      - { role: jdk, tags: ['jdk'] }
      - { role: tomcat, tags: ['tomcat'] }
-     - { role: apps, tags: ['apps'] }
+     - { role: apps_deploy, tags: ['apps'] }
