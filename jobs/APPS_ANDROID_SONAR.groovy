@@ -1,4 +1,4 @@
-
+import utilities.AppsUtils
 // Job de contrôle de qualité pour l'application Android
 def job = freeStyleJob('APPS_ANDROID_SONAR'){
 
@@ -35,3 +35,5 @@ def job = freeStyleJob('APPS_ANDROID_SONAR'){
     }
 //    TODO Envoyer un mail de notification à la fin du deploiement
 }
+AppsUtils.defaultWrappersPolicy(job)
+AppsUtils.defaultLogRotatorPolicy(job)
