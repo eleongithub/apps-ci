@@ -1,14 +1,18 @@
 ---
 # defaults file for jdk
 
-# Modifier la version du jdk si vous souhaiter installer une autre version de JDK
+# Version du jdk à installer
 jdk_java_version: 1.8.0_141
+# Répertoire contenant  les JDKs
 jdk_versions: "/opt/jdk_versions"
+# Chemin absolu du JDK à installer
 jdk_java_home: "{{ jdk_versions }}/jdk{{ jdk_java_version }}"
-# Modifier les noms des fichiers .tar.gz si on souhaite une autre version de JDK
+# Fichier .tar.gz  de téléchargement du JDK pour une machine 32 bits
 jdk_tarball_name_32: jdk-8u141-linux-i586.tar.gz
+# Fichier .tar.gz  de téléchargement du JDK pour une machine 64bits
 jdk_tarball_name_64: jdk-8u141-linux-x64.tar.gz
-# Modifier les URLs de téléchargement des JDKs si on souhaite une autre version de JDK
-jdk_repo_url: "http://192.168.1.97:9081/nexus/content/repositories/releases"
+jdk_repo_url: "http://192.168.0.10:9081/nexus/content/repositories/releases"
+# URL de téléchargement du JDK pour une machine 32 bits
 jdk_32_url: "{{ jdk_repo_url }}/{{ jdk_tarball_name_32 }}"
+# URL de téléchargement du JDK pour une machine 64 bits
 jdk_64_url: "{{ jdk_repo_url }}/{{ jdk_tarball_name_64 }}"

@@ -4,12 +4,25 @@
     path: "{{ jdk_versions }}"
     state: directory
 
-- name: Download and decompress jdk Archive
+- name: Download and decompress jdk 32 bits Archive
   unarchive:
-    src: "jdk_{{ ansible_userspace_bits }}_url"
+    src: "{{ jdk_32_url }}"
     dest: "{{ jdk_versions }}/"
+    owner: root
+    group: root
     remote_src: True
     validate_certs: no
+  when: "ansible_userspace_bits == '32'"
+
+- name: Download and decompress jdk 64 bits Archive
+  get_url:
+    url: "{{ jdk_64_url }}"
+    dest: "{{ jdk_versions }}/"
+    owner: root
+    group: root
+    remote_src: True
+    validate_certs: no
+  when: "ansible_userspace_bits == '64'"
 
 - name: Add/Update environments variables
   blockinfile:
