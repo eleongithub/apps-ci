@@ -29,7 +29,7 @@ def job = freeStyleJob('APPS_ANDROID_SONAR'){
 
     steps {
         gradle {
-            tasks('clean sonarqube Dsonar.host.url=http://192.168.1.97:9000')
+            tasks('clean sonarqube Dsonar.host.url=http://192.168.0.10:9000')
         }
     }
 //    TODO Envoyer un mail de notification à la fin du deploiement

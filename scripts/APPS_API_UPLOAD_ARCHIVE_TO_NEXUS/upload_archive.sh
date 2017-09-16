@@ -12,9 +12,9 @@ password="admin123"
 # Vérifier si le paramètre directory a été renseigné.
 if [ -z "${directory}" ]
 then
-    repo_url="http://192.168.1.97:9081/nexus/content/repositories/${repository}"
+    repo_url="http://192.168.0.10:9081/nexus/content/repositories/${repository}"
 else
-    repo_url="http://192.168.1.97:9081/nexus/content/repositories/${repository}/${target}"
+    repo_url="http://192.168.0.10:9081/nexus/content/repositories/${repository}/${target}"
 fi
 echo "URL Repositiory cible : $repo_url"
 echo "nom du fichier archive à déposer : ${archiveFile}"

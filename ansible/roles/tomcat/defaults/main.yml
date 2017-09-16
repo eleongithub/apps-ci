@@ -1,6 +1,6 @@
 ---
 # defaults file for tomcat
-repo_url: "http://192.168.1.97:9081/nexus"
+repo_url: "http://192.168.0.10:9081/nexus"
 tomcat_version: 8.0.32
 tomcat_tarball_name: "apache-tomcat-{{ tomcat_version }}.tar.gz"
 tomcat_url: "{{ repo_url }}/content/repositories/releases/{{ tomcat_tarball_name }}"
